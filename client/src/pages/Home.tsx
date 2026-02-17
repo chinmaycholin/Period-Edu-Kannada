@@ -62,31 +62,6 @@ export default function Home() {
                   alt="Happy confident girl"
                   className="w-full h-full object-contain hover:scale-105 transition-transform duration-700"
                 />
-                
-                {/* Floating Cards */}
-                <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border border-border hidden sm:block">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-green-100 p-2 rounded-lg">
-                      <Heart className="w-6 h-6 text-green-600 fill-green-600" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground font-bold uppercase">{language === 'en' ? 'Health' : 'ಆರೋಗ್ಯ'}</p>
-                      <p className="font-bold text-foreground">{language === 'en' ? 'Body Positivity' : 'ದೇಹದ ಸಕಾರಾತ್ಮಕತೆ'}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute -top-6 -right-6 bg-white p-4 rounded-xl shadow-xl border border-border hidden sm:block">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-purple-100 p-2 rounded-lg">
-                      <Sun className="w-6 h-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground font-bold uppercase">{language === 'en' ? 'Confidence' : 'ಆತ್ಮವಿಶ್ವಾಸ'}</p>
-                      <p className="font-bold text-foreground">{language === 'en' ? 'Be Yourself' : 'ನೀವೇ ಆಗಿರಿ'}</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </motion.div>
