@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Heart, Sun, Droplet } from "lucide-react";
-import heroImage from "@assets/OIP_1771341460432.jpg";
+import heroImage from "@assets/OIP_1771343926412.jpg";
 
 export default function Home() {
   const { t, language } = useLanguage();
