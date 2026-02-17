@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Heart, Sun, Droplet } from "lucide-react";
+import heroImage from "@assets/OIP_1771341460432.jpg";
 
 export default function Home() {
   const { t, language } = useLanguage();
@@ -54,12 +55,12 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse" />
               
               {/* Main Image */}
-              <div className="relative z-10 w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <div className="relative z-10 w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
                 {/* educational illustration of diverse happy students */}
                 <img 
-                  src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=800&q=80" 
+                  src={heroImage}
                   alt="Happy confident girl"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-700"
                 />
                 
                 {/* Floating Cards */}
