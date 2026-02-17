@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeriodGuide - Ask</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(330, 80%, 55%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(180, 60%, 45%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(0, 84%, 60%)",
+                            foreground: "hsl(0, 0%, 98%)",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(210, 40%, 96.1%)",
+                            foreground: "hsl(215.4, 16.3%, 46.9%)",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(280, 50%, 90%)",
+                            foreground: "hsl(280, 60%, 40%)",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                        card: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --primary: 330 80% 55%;
+            --secondary: 180 60% 45%;
+            --accent: 280 50% 90%;
+            --muted: 210 40% 96.1%;
+            --border: 214.3 31.8% 91.4%;
+            --radius: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        function submitQuestion(event) {
+            event.preventDefault();
+            const input = document.getElementById('question-input');
+            const emailInput = document.getElementById('email-input');
+            const message = input.value.trim();
+            const email = emailInput.value.trim();
+
+            if (!message) return;
+
+            const form = document.getElementById('question-form');
+            const successDiv = document.getElementById('success-message');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+
+            let bodyData = {
+                message: message
+            };
+
+            if (email) {
+                bodyData._replyto = email;
+            }
+
+            fetch("https://formspree.io/f/xreakwbg", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bodyData)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        successDiv.classList.remove('hidden');
+                        input.value = ''; // Clear input
+
+                        setTimeout(() => {
+                            form.style.display = 'block';
+                            successDiv.classList.add('hidden');
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnText;
+                        }, 5000);
+                    } else {
+                        response.json().then(data => {
+                            if (Object.hasOwn(data, 'errors')) {
+                                alert(data["errors"].map(error => error["message"]).join(", "));
+                            } else {
+                                alert("Oops! There was a problem submitting your question");
+                            }
+                        });
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnText;
+                    }
+                })
+                .catch(error => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    alert("Oops! There was a problem submitting your question");
+                });
+        }
+    </script>
+</head>
+
+<body class="bg-background text-foreground min-h-screen flex flex-col font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group cursor-pointer">
+                    <div class="bg-primary/10 p-2 rounded-full group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-heart w-6 h-6 text-primary flex items-center justify-center"></i>
+                    </div>
+                    <span class="font-bold text-xl text-foreground tracking-tight">
+                        Period<span class="text-primary">Guide</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.home">Home</a>
+                    <a href="body.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.body">Your Body</a>
+                    <a href="hygiene.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.hygiene">Hygiene</a>
+                    <a href="myths.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.myths">Myths</a>
+
+                    <a href="ask.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.ask">Ask</a>
+
+                    <button onclick="toggleLanguage()" id="lang-toggle"
+                        class="ml-2 px-3 py-1 rounded-full border border-primary/20 hover:bg-primary/5 hover:text-primary font-bold text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" id="lang-toggle-mobile"
+                        class="rounded-full font-bold text-primary text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-foreground p-2 focus:outline-none">
+                        <i id="menu-icon-open" class="fas fa-bars w-6 h-6"></i>
+                        <i id="menu-icon-close" class="fas fa-times w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-b border-border overflow-hidden absolute w-full top-16 left-0">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.home">Home</a>
+                <a href="body.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.body">Your Body</a>
+                <a href="hygiene.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.hygiene">Hygiene</a>
+                <a href="myths.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.myths">Myths</a>
+                <a href="ask.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.ask">Ask</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div
+            class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-white flex items-center justify-center">
+
+            <div class="flex flex-col lg:flex-row gap-12 items-center max-w-5xl w-full">
+                <!-- Illustration Side -->
+                <div class="flex-1 w-full hidden lg:block">
+                    <img src="https://placehold.co/600x600/fdf2f8/db2777?text=Ask+A+Question"
+                        alt="Girl asking question illustration"
+                        class="w-full h-auto rounded-3xl shadow-lg transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
+                </div>
+
+                <div
+                    class="flex-1 max-w-md w-full space-y-8 bg-white p-8 rounded-3xl shadow-xl border border-primary/10">
+                    <!-- Header -->
+                    <div class="text-center">
+                        <div
+                            class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-question-circle w-6 h-6 flex items-center justify-center text-xl"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold mb-2 text-foreground" data-t="ask.title">Have a Question?</h1>
+                        <p class="text-muted-foreground text-sm" data-t="ask.subtitle">
+                            It's okay to have questions. Ask anonymously here.
+                        </p>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="question-form" onsubmit="submitQuestion(event)" class="space-y-6">
+                        <div class="relative">
+                            <input type="email" id="email-input" name="_replyto"
+                                class="w-full rounded-2xl border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 mb-4"
+                                placeholder="Your Email (Optional)" data-p="ask.email_placeholder">
+
+                            <textarea id="question-input" name="message"
+                                class="min-h-[120px] w-full rounded-2xl border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 resize-y"
+                                placeholder="Type your question here..." data-p="ask.placeholder"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full inline-flex items-center justify-center rounded-xl bg-primary px-8 py-3 text-sm font-medium text-white shadow hover:bg-primary/90 transition-colors">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            <span data-t="ask.submit">Send Question</span>
+                        </button>
+                    </form>
+
+                    <!-- Success Message -->
+                    <div id="success-message"
+                        class="hidden text-center p-6 bg-green-50 rounded-2xl border border-green-200">
+                        <div
+                            class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-check w-6 h-6 flex items-center justify-center"></i>
+                        </div>
+                        <p class="font-medium text-green-900" data-t="ask.success">Question sent! We'll answer it soon.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

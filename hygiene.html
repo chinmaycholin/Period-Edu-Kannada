@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeriodGuide - Hygiene</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(330, 80%, 55%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(180, 60%, 45%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(0, 84%, 60%)",
+                            foreground: "hsl(0, 0%, 98%)",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(210, 40%, 96.1%)",
+                            foreground: "hsl(215.4, 16.3%, 46.9%)",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(280, 50%, 90%)",
+                            foreground: "hsl(280, 60%, 40%)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --primary: 330 80% 55%;
+            --secondary: 180 60% 45%;
+            --accent: 280 50% 90%;
+            --muted: 210 40% 96.1%;
+            --border: 214.3 31.8% 91.4%;
+            --radius: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-background text-foreground min-h-screen flex flex-col font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group cursor-pointer">
+                    <div class="bg-primary/10 p-2 rounded-full group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-heart w-6 h-6 text-primary flex items-center justify-center"></i>
+                    </div>
+                    <span class="font-bold text-xl text-foreground tracking-tight">
+                        Period<span class="text-primary">Guide</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.home">Home</a>
+                    <a href="body.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.body">Your Body</a>
+                    <a href="hygiene.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.hygiene">Hygiene</a>
+                    <a href="myths.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.myths">Myths</a>
+
+                    <a href="ask.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.ask">Ask</a>
+
+                    <button onclick="toggleLanguage()" id="lang-toggle"
+                        class="ml-2 px-3 py-1 rounded-full border border-primary/20 hover:bg-primary/5 hover:text-primary font-bold text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" id="lang-toggle-mobile"
+                        class="rounded-full font-bold text-primary text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-foreground p-2 focus:outline-none">
+                        <i id="menu-icon-open" class="fas fa-bars w-6 h-6"></i>
+                        <i id="menu-icon-close" class="fas fa-times w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-b border-border overflow-hidden absolute w-full top-16 left-0">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.home">Home</a>
+                <a href="body.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.body">Your Body</a>
+                <a href="hygiene.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.hygiene">Hygiene</a>
+                <a href="myths.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.myths">Myths</a>
+                <a href="ask.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.ask">Ask</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-primary/5">
+            <div class="max-w-4xl mx-auto space-y-12">
+
+                <!-- Header -->
+                <div class="text-center space-y-4 animate-fade-in-up">
+                    <div
+                        class="w-16 h-16 bg-accent/20 text-accent-foreground rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-sparkles w-8 h-8 flex items-center justify-center text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-foreground" data-t="hygiene.title">
+                        Taking Care of Yourself
+                    </h1>
+                    <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto" data-t="hygiene.intro">
+                        Staying clean and comfortable is important during your period.
+                    </p>
+                </div>
+
+                <!-- Content -->
+                <div class="grid md:grid-cols-2 gap-8">
+
+                    <!-- Products Card -->
+                    <div
+                        class="bg-white rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="h-2 w-full bg-primary"></div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <i class="fas fa-shield-alt w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <h2 class="text-xl font-bold" data-t="hygiene.products.title">Products to Use</h2>
+                            </div>
+                            <img src="https://placehold.co/600x300/f3e8ff/7e22ce?text=Menstrual+Products"
+                                alt="Menstrual products illustration"
+                                class="rounded-xl w-full mb-4 object-cover shadow-sm">
+                            <ul class="space-y-3 list-disc pl-5 text-muted-foreground">
+                                <li data-t="hygiene.item1"><strong>Sanitary Pads:</strong> Stick to underwear, absorb
+                                    blood. Easy to use!</li>
+                                <li data-t="hygiene.item2"><strong>Tampons:</strong> Go inside the vagina to absorb
+                                    flow.</li>
+                                <li data-t="hygiene.item3"><strong>Menstrual Cups:</strong> Reusable cups that collect
+                                    flow. Eco-friendly!</li>
+                                <li data-t="hygiene.item4"><strong>Cloth Pads:</strong> Washable and reusable cloth
+                                    options.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Clean Card -->
+                    <div
+                        class="bg-white rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="h-2 w-full bg-secondary"></div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="p-2 rounded-lg bg-secondary/10 text-secondary">
+                                    <i class="fas fa-tint w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <h2 class="text-xl font-bold" data-t="hygiene.clean.title">Stay Clean & Fresh</h2>
+                            </div>
+                            <img src="https://placehold.co/600x300/ecfeff/0e7490?text=Hygiene+Routine"
+                                alt="Hygiene routine illustration"
+                                class="rounded-xl w-full mb-4 object-cover shadow-sm">
+                            <ul class="space-y-3 list-disc pl-5 text-muted-foreground">
+                                <li data-t="hygiene.clean1">Change pads every 4-6 hours to prevent infection.</li>
+                                <li data-t="hygiene.clean2">Wash your external area with plain water. No soap needed
+                                    inside!</li>
+                                <li data-t="hygiene.clean3">Wear breathable cotton underwear.</li>
+                                <li data-t="hygiene.clean4">Take a bath daily - it's safe and refreshing!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Disposal Card -->
+                    <div class="md:col-span-2">
+                        <div
+                            class="bg-white rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="h-2 w-full bg-accent"></div>
+                            <div class="p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="p-2 rounded-lg bg-accent/10 text-accent-foreground">
+                                        <i class="fas fa-trash-alt w-6 h-6 flex items-center justify-center"></i>
+                                    </div>
+                                    <h2 class="text-xl font-bold" data-t="hygiene.disposal.title">Proper Disposal</h2>
+                                </div>
+                                <div class="bg-accent/10 p-4 rounded-xl mb-4">
+                                    <p class="font-bold text-center text-accent-foreground"
+                                        data-t="hygiene.disposal.warn">
+                                        🚫 NEVER flush pads down the toilet!
+                                    </p>
+                                </div>
+                                <p class="text-muted-foreground" data-t="hygiene.disposal.text">
+                                    Wrap used pads in newspaper or the wrapper of the new pad. Throw them in a dustbin.
+                                    This keeps the environment clean and prevents clogged drains.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

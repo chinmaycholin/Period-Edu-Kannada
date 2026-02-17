@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeriodGuide - Myths</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(330, 80%, 55%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(180, 60%, 45%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(0, 84%, 60%)",
+                            foreground: "hsl(0, 0%, 98%)",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(210, 40%, 96.1%)",
+                            foreground: "hsl(215.4, 16.3%, 46.9%)",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(280, 50%, 90%)",
+                            foreground: "hsl(280, 60%, 40%)",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                        card: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --primary: 330 80% 55%;
+            --secondary: 180 60% 45%;
+            --accent: 280 50% 90%;
+            --muted: 210 40% 96.1%;
+            --border: 214.3 31.8% 91.4%;
+            --radius: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-background text-foreground min-h-screen flex flex-col font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group cursor-pointer">
+                    <div class="bg-primary/10 p-2 rounded-full group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-heart w-6 h-6 text-primary flex items-center justify-center"></i>
+                    </div>
+                    <span class="font-bold text-xl text-foreground tracking-tight">
+                        Period<span class="text-primary">Guide</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.home">Home</a>
+                    <a href="body.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.body">Your Body</a>
+                    <a href="hygiene.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.hygiene">Hygiene</a>
+                    <a href="myths.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.myths">Myths</a>
+
+                    <a href="ask.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.ask">Ask</a>
+
+                    <button onclick="toggleLanguage()" id="lang-toggle"
+                        class="ml-2 px-3 py-1 rounded-full border border-primary/20 hover:bg-primary/5 hover:text-primary font-bold text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" id="lang-toggle-mobile"
+                        class="rounded-full font-bold text-primary text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-foreground p-2 focus:outline-none">
+                        <i id="menu-icon-open" class="fas fa-bars w-6 h-6"></i>
+                        <i id="menu-icon-close" class="fas fa-times w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-b border-border overflow-hidden absolute w-full top-16 left-0">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.home">Home</a>
+                <a href="body.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.body">Your Body</a>
+                <a href="hygiene.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.hygiene">Hygiene</a>
+                <a href="myths.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.myths">Myths</a>
+                <a href="ask.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.ask">Ask</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white">
+            <div class="max-w-4xl mx-auto space-y-12">
+
+                <!-- Header -->
+                <div class="text-center space-y-4 animate-fade-in-up">
+                    <div
+                        class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-info-circle w-8 h-8 flex items-center justify-center text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-foreground mb-4" data-t="myths.title">Fact vs.
+                        Myth</h1>
+                    <p class="text-muted-foreground max-w-2xl mx-auto" data-t="myths.subtitle">
+                        Let's clear up some confusion. Knowing the truth helps you feel confident!
+                    </p>
+                    <img src="https://placehold.co/800x300/faf5ff/6b21a8?text=Facts+vs+Myths"
+                        alt="Fact vs Myth illustration"
+                        class="rounded-2xl shadow-md mx-auto mt-6 w-full max-w-2xl object-cover">
+                </div>
+
+                <!-- Myths Grid -->
+                <div class="grid gap-6">
+
+                    <!-- Myth 1 -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-purple-100 overflow-hidden relative">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-purple-400"></div>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <!-- Myth Side -->
+                            <div class="flex-1 bg-red-50 p-4 rounded-xl border border-red-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-red-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span data-t="myths.label.myth">Myth</span>
+                                </div>
+                                <p class="font-semibold text-lg text-red-900" data-t="myths.myth1">"You shouldn't touch
+                                    pickles."</p>
+                            </div>
+                            <!-- Fact Side -->
+                            <div class="flex-1 bg-green-50 p-4 rounded-xl border border-green-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-green-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-t="myths.label.fact">Fact</span>
+                                </div>
+                                <p class="font-semibold text-lg text-green-900" data-t="myths.fact1">Food doesn't spoil
+                                    because of periods. You can touch and eat anything!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Myth 2 -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-purple-100 overflow-hidden relative">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-purple-400"></div>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <!-- Myth Side -->
+                            <div class="flex-1 bg-red-50 p-4 rounded-xl border border-red-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-red-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span data-t="myths.label.myth">Myth</span>
+                                </div>
+                                <p class="font-semibold text-lg text-red-900" data-t="myths.myth2">"You can't exercise
+                                    or play sports."</p>
+                            </div>
+                            <!-- Fact Side -->
+                            <div class="flex-1 bg-green-50 p-4 rounded-xl border border-green-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-green-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-t="myths.label.fact">Fact</span>
+                                </div>
+                                <p class="font-semibold text-lg text-green-900" data-t="myths.fact2">Exercise helps
+                                    reduce cramps! Athletes compete on their periods all the time.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Myth 3 -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-purple-100 overflow-hidden relative">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-purple-400"></div>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <!-- Myth Side -->
+                            <div class="flex-1 bg-red-50 p-4 rounded-xl border border-red-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-red-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span data-t="myths.label.myth">Myth</span>
+                                </div>
+                                <p class="font-semibold text-lg text-red-900" data-t="myths.myth3">"Period blood is
+                                    'dirty' blood."</p>
+                            </div>
+                            <!-- Fact Side -->
+                            <div class="flex-1 bg-green-50 p-4 rounded-xl border border-green-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-green-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-t="myths.label.fact">Fact</span>
+                                </div>
+                                <p class="font-semibold text-lg text-green-900" data-t="myths.fact3">It's just blood and
+                                    tissue lining that wasn't used. It's clean and natural.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Myth 4 -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-purple-100 overflow-hidden relative">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-purple-400"></div>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <!-- Myth Side -->
+                            <div class="flex-1 bg-red-50 p-4 rounded-xl border border-red-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-red-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span data-t="myths.label.myth">Myth</span>
+                                </div>
+                                <p class="font-semibold text-lg text-red-900" data-t="myths.myth4">"You shouldn't wash
+                                    your hair."</p>
+                            </div>
+                            <!-- Fact Side -->
+                            <div class="flex-1 bg-green-50 p-4 rounded-xl border border-green-100">
+                                <div
+                                    class="flex items-center gap-2 mb-2 text-green-600 font-bold uppercase text-sm tracking-wider">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-t="myths.label.fact">Fact</span>
+                                </div>
+                                <p class="font-semibold text-lg text-green-900" data-t="myths.fact4">Warm baths and
+                                    showers help you feel clean and relax muscles.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

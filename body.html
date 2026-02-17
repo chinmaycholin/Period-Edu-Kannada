@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeriodGuide - Your Body</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(330, 80%, 55%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(180, 60%, 45%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(0, 84%, 60%)",
+                            foreground: "hsl(0, 0%, 98%)",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(210, 40%, 96.1%)",
+                            foreground: "hsl(215.4, 16.3%, 46.9%)",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(280, 50%, 90%)",
+                            foreground: "hsl(280, 60%, 40%)",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                        card: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --primary: 330 80% 55%;
+            --secondary: 180 60% 45%;
+            --accent: 280 50% 90%;
+            --muted: 210 40% 96.1%;
+            --border: 214.3 31.8% 91.4%;
+            --radius: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-background text-foreground min-h-screen flex flex-col font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group cursor-pointer">
+                    <div class="bg-primary/10 p-2 rounded-full group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-heart w-6 h-6 text-primary flex items-center justify-center"></i>
+                    </div>
+                    <span class="font-bold text-xl text-foreground tracking-tight">
+                        Period<span class="text-primary">Guide</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.home">Home</a>
+                    <a href="body.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.body">Your Body</a>
+                    <a href="hygiene.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.hygiene">Hygiene</a>
+                    <a href="myths.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.myths">Myths</a>
+
+                    <a href="ask.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.ask">Ask</a>
+
+                    <button onclick="toggleLanguage()" id="lang-toggle"
+                        class="ml-2 px-3 py-1 rounded-full border border-primary/20 hover:bg-primary/5 hover:text-primary font-bold text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" id="lang-toggle-mobile"
+                        class="rounded-full font-bold text-primary text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-foreground p-2 focus:outline-none">
+                        <i id="menu-icon-open" class="fas fa-bars w-6 h-6"></i>
+                        <i id="menu-icon-close" class="fas fa-times w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-b border-border overflow-hidden absolute w-full top-16 left-0">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.home">Home</a>
+                <a href="body.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.body">Your Body</a>
+                <a href="hygiene.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.hygiene">Hygiene</a>
+                <a href="myths.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.myths">Myths</a>
+                <a href="ask.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.ask">Ask</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-secondary/20">
+            <div class="max-w-4xl mx-auto space-y-12">
+
+                <!-- Header -->
+                <div class="text-center space-y-4 animate-fade-in-up">
+                    <div
+                        class="w-16 h-16 bg-primary/20 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-heartbeat w-8 h-8 flex items-center justify-center text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-foreground" data-t="body.title">
+                        Understanding Your Cycle
+                    </h1>
+                    <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto" data-t="body.intro">
+                        Puberty is a natural part of growing up. It's when your body changes from being a child to an
+                        adult.
+                    </p>
+                    <img src="https://placehold.co/800x400/e2e8f0/475569?text=Anatomy+Diagram"
+                        alt="Female reproductive system anatomy"
+                        class="rounded-2xl shadow-md mx-auto mt-8 w-full max-w-2xl object-cover hover:shadow-lg transition-shadow">
+                </div>
+
+                <!-- Content Cards -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Card 1 -->
+                    <div
+                        class="bg-white rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="h-2 w-full bg-primary"></div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="p-2 rounded-lg bg-primary/10 text-primary">
+                                    <i class="fas fa-clock w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <h2 class="text-xl font-bold" data-t="body.card1.title">What is Menstruation?</h2>
+                            </div>
+                            <div class="space-y-4 text-muted-foreground">
+                                <p data-t="body.card1.text1">
+                                    Menstruation, commonly called a "period," is a normal part of growing up...
+                                </p>
+                                <p data-t="body.card1.text2">
+                                    This process usually starts between ages 8 and 15...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div
+                        class="bg-white rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="h-2 w-full bg-secondary"></div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="p-2 rounded-lg bg-secondary/10 text-secondary">
+                                    <i class="fas fa-smile w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <h2 class="text-xl font-bold" data-t="body.card2.title">Why does it happen?</h2>
+                            </div>
+                            <div class="space-y-4 text-muted-foreground">
+                                <p data-t="body.card2.text1">
+                                    It's all about your body's amazing way of preparing for the future...
+                                </p>
+                                <p data-t="body.card2.text2">
+                                    Think of it like a cozy nest...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Full Width Card -->
+                    <div class="md:col-span-2">
+                        <div
+                            class="bg-white rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="h-2 w-full bg-accent"></div>
+                            <div class="p-6">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="p-2 rounded-lg bg-accent/10 text-accent-foreground">
+                                        <i class="fas fa-calendar w-6 h-6 flex items-center justify-center"></i>
+                                    </div>
+                                    <h2 class="text-xl font-bold" data-t="body.card3.title">The 28-Day Journey</h2>
+                                </div>
+
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div class="space-y-6">
+                                        <img src="https://placehold.co/600x600/fecdd3/be185d?text=Menstrual+Cycle+Phases"
+                                            alt="Menstrual cycle phases chart"
+                                            class="rounded-xl shadow-sm w-full object-cover mb-6 md:hidden">
+                                        <div class="border-l-4 border-primary pl-4 py-1">
+                                            <p class="font-bold text-primary" data-t="body.phase1.title">Phase 1:
+                                                Menstruation (Days 1–5)</p>
+                                            <p class="text-sm text-muted-foreground" data-t="body.phase1.text">The
+                                                "nest" (lining) is shed. This is the bleeding phase.</p>
+                                        </div>
+                                        <div class="border-l-4 border-secondary pl-4 py-1">
+                                            <p class="font-bold text-secondary" data-t="body.phase2.title">Phase 2:
+                                                Building Up (Days 6–13)</p>
+                                            <p class="text-sm text-muted-foreground" data-t="body.phase2.text">Hormones
+                                                help a new lining grow and prepare an egg.</p>
+                                        </div>
+                                        <div class="border-l-4 border-green-500 pl-4 py-1">
+                                            <p class="font-bold text-green-600" data-t="body.phase3.title">Phase 3:
+                                                Ovulation (Day 14)</p>
+                                            <p class="text-sm text-muted-foreground" data-t="body.phase3.text">An egg is
+                                                released from the ovary. This is mid-cycle.</p>
+                                        </div>
+                                        <div class="border-l-4 border-accent pl-4 py-1">
+                                            <p class="font-bold text-accent-foreground" data-t="body.phase4.title">Phase
+                                                4: The Wait (Days 15–28)</p>
+                                            <p class="text-sm text-muted-foreground" data-t="body.phase4.text">The body
+                                                waits to see if the egg is fertilized. If not, the cycle restarts.</p>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="flex flex-col items-center justify-center p-6 bg-accent/5 rounded-3xl border border-accent/10">
+                                        <div class="relative flex items-center justify-center">
+                                            <div
+                                                class="w-48 h-48 rounded-full border-8 border-accent/20 border-t-primary relative flex items-center justify-center animate-spin-slow">
+                                                <div class="absolute inset-0 flex items-center justify-center rotate-0">
+                                                    <div
+                                                        class="w-4 h-4 bg-primary rounded-full -translate-y-24 shadow-lg shadow-primary/50">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                                <span class="text-5xl font-black text-accent-foreground">28</span>
+                                                <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mt-1"
+                                                    data-t="body.days">
+                                                    Days
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm text-center mt-6 text-muted-foreground italic"
+                                            data-t="body.note">
+                                            Every body is unique! Cycles can range from 21 to 35 days.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

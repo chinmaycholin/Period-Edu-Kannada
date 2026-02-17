@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeriodGuide - Safe Space for Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(330, 80%, 55%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(180, 60%, 45%)",
+                            foreground: "hsl(0, 0%, 100%)",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(0, 84%, 60%)",
+                            foreground: "hsl(0, 0%, 98%)",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(210, 40%, 96.1%)",
+                            foreground: "hsl(215.4, 16.3%, 46.9%)",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(280, 50%, 90%)",
+                            foreground: "hsl(280, 60%, 40%)",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                        card: {
+                            DEFAULT: "hsl(0, 0%, 100%)",
+                            foreground: "hsl(222.2, 84%, 4.9%)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 222.2 84% 4.9%;
+            --primary: 330 80% 55%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 180 60% 45%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 280 50% 90%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 222.2 84% 4.9%;
+            --radius: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-background text-foreground min-h-screen flex flex-col font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group cursor-pointer">
+                    <div class="bg-primary/10 p-2 rounded-full group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-heart w-6 h-6 text-primary flex items-center justify-center"></i>
+                    </div>
+                    <span class="font-bold text-xl text-foreground tracking-tight">
+                        Period<span class="text-primary">Guide</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.home">Home</a>
+                    <a href="body.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.body">Your Body</a>
+                    <a href="hygiene.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.hygiene">Hygiene</a>
+                    <a href="myths.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.myths">Myths</a>
+
+                    <a href="ask.html"
+                        class="nav-link text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                        data-t="nav.ask">Ask</a>
+
+                    <button onclick="toggleLanguage()" id="lang-toggle"
+                        class="ml-2 px-3 py-1 rounded-full border border-primary/20 hover:bg-primary/5 hover:text-primary font-bold text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" id="lang-toggle-mobile"
+                        class="rounded-full font-bold text-primary text-sm">
+                        ಕನ್ನಡ
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-foreground p-2 focus:outline-none">
+                        <i id="menu-icon-open" class="fas fa-bars w-6 h-6"></i>
+                        <i id="menu-icon-close" class="fas fa-times w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-b border-border overflow-hidden absolute w-full top-16 left-0">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.home">Home</a>
+                <a href="body.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.body">Your Body</a>
+                <a href="hygiene.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.hygiene">Hygiene</a>
+                <a href="myths.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.myths">Myths</a>
+                <a href="ask.html"
+                    class="block px-3 py-3 rounded-md text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    data-t="nav.ask">Ask</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="min-h-screen">
+            <!-- Hero Section -->
+            <!-- Hero Section -->
+            <section class="relative overflow-hidden min-h-screen flex items-center pt-20 pb-20 lg:pt-0 lg:pb-0">
+                <div
+                    class="absolute inset-0 -z-10 opacity-50 bg-gradient-to-tr from-primary/5 via-white to-secondary/5">
+                </div>
+
+                <div
+                    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 w-full">
+                    <!-- Text Content -->
+                    <div class="flex-1 text-center lg:text-left animate-fade-in-up">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 border border-primary/20 mb-6 text-primary font-medium text-sm shadow-sm backdrop-blur-sm">
+                            <i class="fas fa-star w-4 h-4 text-primary"></i>
+                            <span data-t="hero.safe_space">Safe Space for Learning</span>
+                        </div>
+
+                        <h1 class="text-4xl lg:text-6xl font-extrabold text-foreground mb-6 leading-tight"
+                            data-t="hero.title">
+                            Growing Up with Confidence
+                        </h1>
+
+                        <p class="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                            data-t="hero.subtitle">
+                            A friendly guide to understanding your body and changes.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="body.html"
+                                class="inline-flex items-center justify-center rounded-full px-8 text-lg h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-0.5 transition-all font-medium">
+                                <span data-t="hero.cta">Start Learning</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Image Content -->
+                    <div class="flex-1 w-full max-w-md lg:max-w-xl">
+                        <div class="relative w-full">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse">
+                            </div>
+
+                            <div
+                                class="relative z-10 w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                                <img src="assets/OIP_1771343926412.jpg" alt="Happy confident girl"
+                                    class="w-full h-auto hover:scale-105 transition-transform duration-700" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Body Card -->
+                        <a href="body.html" class="group block h-full">
+                            <div
+                                class="p-8 rounded-3xl bg-secondary/10 hover:bg-secondary/20 transition-colors cursor-pointer h-full border border-secondary/20 transform hover:-translate-y-1 duration-300">
+                                <div
+                                    class="bg-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm text-secondary">
+                                    <i class="fas fa-droplet w-7 h-7 flex items-center justify-center text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-3 text-foreground group-hover:text-secondary hover:text-secondary-foreground transition-colors"
+                                    data-t="nav.body">Your Body</h3>
+                                <p class="text-muted-foreground leading-relaxed">
+                                    <span data-t="body.card1.text1" class="line-clamp-3">Learn about the biology behind
+                                        menstruation and how your body works.</span>
+                                </p>
+                            </div>
+                        </a>
+
+                        <!-- Hygiene Card -->
+                        <a href="hygiene.html" class="group block h-full">
+                            <div
+                                class="p-8 rounded-3xl bg-accent/30 hover:bg-accent/50 transition-colors cursor-pointer h-full border border-accent">
+                                <div
+                                    class="bg-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm text-accent-foreground">
+                                    <i class="fas fa-heart w-7 h-7 flex items-center justify-center text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-3 text-foreground group-hover:text-accent-foreground transition-colors"
+                                    data-t="nav.hygiene">Hygiene</h3>
+                                <p class="text-muted-foreground leading-relaxed" data-t="hygiene.intro">
+                                    Tips on staying clean, choosing products, and feeling comfortable.
+                                </p>
+                            </div>
+                        </a>
+
+                        <!-- Ask Card -->
+                        <a href="ask.html" class="group block h-full">
+                            <div
+                                class="p-8 rounded-3xl bg-primary/10 hover:bg-primary/20 transition-colors cursor-pointer h-full border border-primary/20">
+                                <div
+                                    class="bg-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm text-primary">
+                                    <i class="fas fa-star w-7 h-7 flex items-center justify-center text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors"
+                                    data-t="nav.ask">Ask</h3>
+                                <p class="text-muted-foreground leading-relaxed" data-t="ask.subtitle">
+                                    Have questions? Ask anonymously and get answers without fear.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
