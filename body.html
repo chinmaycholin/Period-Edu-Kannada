@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2275%22 font-size=%2270%22 text-anchor=%22middle%22>❤️</text></svg>">
     <title>PeriodGuide - Your Body</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -167,9 +169,13 @@
                         Puberty is a natural part of growing up. It's when your body changes from being a child to an
                         adult.
                     </p>
-                    <img src="https://placehold.co/800x400/e2e8f0/475569?text=Anatomy+Diagram"
-                        alt="Female reproductive system anatomy"
-                        class="rounded-2xl shadow-md mx-auto mt-8 w-full max-w-2xl object-cover hover:shadow-lg transition-shadow">
+                    <div
+                        class="rounded-2xl shadow-md mx-auto mt-8 w-full max-w-2xl overflow-hidden hover:shadow-lg transition-shadow pointer-events-none">
+                        <video autoplay loop muted playsinline class="w-full h-auto">
+                            <source src="assets/body.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
 
                 <!-- Content Cards -->

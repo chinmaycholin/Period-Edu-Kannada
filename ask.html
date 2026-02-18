@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2275%22 font-size=%2270%22 text-anchor=%22middle%22>❤️</text></svg>">
     <title>PeriodGuide - Ask</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -220,8 +222,7 @@
             <div class="flex flex-col lg:flex-row gap-12 items-center max-w-5xl w-full">
                 <!-- Illustration Side -->
                 <div class="flex-1 w-full hidden lg:block">
-                    <img src="https://placehold.co/600x600/fdf2f8/db2777?text=Ask+A+Question"
-                        alt="Girl asking question illustration"
+                    <img src="assets/ask.jpg" alt="Girl asking question illustration"
                         class="w-full h-auto rounded-3xl shadow-lg transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
                 </div>
 
@@ -235,7 +236,7 @@
                         </div>
                         <h1 class="text-2xl font-bold mb-2 text-foreground" data-t="ask.title">Have a Question?</h1>
                         <p class="text-muted-foreground text-sm" data-t="ask.subtitle">
-                            It's okay to have questions. Ask anonymously here.
+                            It's okay to have questions.
                         </p>
                     </div>
 
@@ -244,7 +245,7 @@
                         <div class="relative">
                             <input type="email" id="email-input" name="_replyto"
                                 class="w-full rounded-2xl border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 mb-4"
-                                placeholder="Your Email (Optional)" data-p="ask.email_placeholder">
+                                placeholder="Your Email" data-p="ask.email_placeholder" required>
 
                             <textarea id="question-input" name="message"
                                 class="min-h-[120px] w-full rounded-2xl border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 resize-y"
