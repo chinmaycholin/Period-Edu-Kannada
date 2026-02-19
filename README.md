@@ -12,7 +12,7 @@ It provides accurate information about puberty, hygiene, and common myths in bot
     *   **Engaging UI**: Heart-themed design with custom animations and a friendly interface.
 *   **Educational Content**: Easy-to-understand guides on anatomy, hygiene products, and the menstrual cycle.
 *   **Myth Busting**: A dedicated section to debunk common superstitions and fears.
-*   **Ask a Question**: A confidential space for users to ask doubts. *Note: Email is required so we can reply personally.*
+*   **Ask a Question**: A confidential space for users to ask doubts. *Note: Phone Number is required so we can reply personally.*
 *   **Responsive Design**: Works perfectly on mobile phones, tablets, and desktops.
 
 ## 🛠️ Built With
