@@ -69,7 +69,7 @@ const translations = {
     // Ask
     "ask.title": { en: "Have a Question?", kn: "ಪ್ರಶ್ನೆ ಇದೆಯೇ?" },
     "ask.subtitle": { en: "It's okay to have questions.", kn: "ಪ್ರಶ್ನೆಗಳನ್ನು ಹೊಂದುವುದು ಸಹಜ." },
-    "ask.email_placeholder": { en: "Your Email - so we can reply", kn: "ನಿಮ್ಮ ಇಮೇಲ್ - ನಾವು ಉತ್ತರಿಸಲು" },
+    "ask.phone_placeholder": { en: "Your Phone Number - so we can call/text", kn: "ನಿಮ್ಮ ದೂರವಾಣಿ ಸಂಖ್ಯೆ - ನಾವು ಕರೆ/ಸಂದೇಶ ಕಳುಹಿಸಲು" },
     "ask.placeholder": { en: "Type your question here...", kn: "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ..." },
     "ask.submit": { en: "Send Question", kn: "ಪ್ರಶ್ನೆ ಕಳುಹಿಸಿ" },
     "ask.success": { en: "Question sent! We'll answer it soon.", kn: "ಪ್ರಶ್ನೆ ಕಳುಹಿಸಲಾಗಿದೆ! ನಾವು ಶೀಘ್ರದಲ್ಲೇ ಉತ್ತರಿಸುತ್ತೇವೆ." }
